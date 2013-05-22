@@ -1,0 +1,16 @@
+doctype 5
+html
+  head
+    title picmul
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes')
+  body
+    .container
+      .navbar
+        .navbar-inner
+          a.brand(href='/') picmul
+
+      block content
+
+  != js('jquery')
+  != css('bootstrap')
+  != css('bootstrap-responsive')

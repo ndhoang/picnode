@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  - obj = data
+    ul.nav.nav-tabs.nav-stacked
+      for o in obj
+        li
+          a(href="/show/#{o.id}")= o.title
