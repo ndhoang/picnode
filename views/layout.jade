@@ -8,7 +8,10 @@ html
       .navbar
         .navbar-inner
           a.brand(href='/') picmul
-          a(href='/auth/facebook') login
+          ul.nav
+            li
+              a(href='/auth/facebook') 
+                img(src='/images/login-button.png', width='154', height='22')
 
       block content
 

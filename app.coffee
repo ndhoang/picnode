@@ -10,6 +10,8 @@ app = express()
 
 FACEBOOK_APP_ID = '378328998953452'
 FACEBOOK_APP_SECRET = '04209991da9f85802a67799aa0ce6383'
+CALLBACK_URL = 'http://localhost:3000/auth/facebook/callback'
+#CALLBACK_URL = 'http://picmul.com:3000/auth/facebook/callback'
 
 passport.serializeUser (user, done) ->
   done null, user
@@ -19,7 +21,7 @@ passport.deserializeUser (obj, done) ->
 opts = 
   clientID: FACEBOOK_APP_ID
   clientSecret: FACEBOOK_APP_SECRET
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  callbackURL: CALLBACK_URL
 passport.use(new FacebookStratey opts, (accessToken, refreshToken, profile, done) -> 
   process.nextTick () ->
     return done null, profile

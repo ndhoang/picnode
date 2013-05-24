@@ -24,11 +24,21 @@ routes = (app, passport) ->
       maxRedirects: 10
       timeout: 10000
     request opts, (err, response, body) ->
+      console.log body
+      body = body.replace('<html>', '')
+      body = body.replace('<head>', '')
+      body = body.replace('</head>', '')
+      body = body.replace('<body>', '')
+      body = body.replace('\\n', '')
+      body = body.replace('&gt;&gt;', '')
+      body = body.replace('&lt;&lt;', '')
       data = JSON.parse body
+      
       values =
         title: data.title
         content: data.content
       res.render 'show', values
+      #res.json values
 
   app.get '/fb', (req, res) ->
     res.json {success: true, user: req.user._json}
@@ -44,7 +54,11 @@ routes = (app, passport) ->
 
   app.get '/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}), (req, res) ->
     console.log 'aaa', req.user
-    res.json req.user._json
+    values =
+      success: req.isAuthenticated()
+      user: req.user._json
+
+    res.json values
     #res.redirect '/fb'
 
   ensureAuthenticated = (req, res, next) ->
