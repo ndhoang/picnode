@@ -10,8 +10,8 @@ app = express()
 
 FACEBOOK_APP_ID = '378328998953452'
 FACEBOOK_APP_SECRET = '04209991da9f85802a67799aa0ce6383'
-CALLBACK_URL = 'http://localhost:3000/auth/facebook/callback'
-#CALLBACK_URL = 'http://picmul.com:3000/auth/facebook/callback'
+#CALLBACK_URL = 'http://localhost:3000/auth/facebook/callback'
+CALLBACK_URL = 'http://picmul.com/auth/facebook/callback'
 
 passport.serializeUser (user, done) ->
   done null, user

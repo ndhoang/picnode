@@ -24,7 +24,7 @@ routes = (app, passport) ->
       maxRedirects: 10
       timeout: 10000
     request opts, (err, response, body) ->
-      console.log body
+      #console.log body
       body = body.replace('<html>', '')
       body = body.replace('<head>', '')
       body = body.replace('</head>', '')
