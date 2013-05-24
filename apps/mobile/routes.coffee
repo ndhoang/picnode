@@ -1,6 +1,8 @@
 request = require 'request'
 
 routes = (app, passport) ->
+  app.post '/', (req, res) ->
+    res.redirect '/'
   app.get '/', (req, res) ->
     opts = 
       uri: 'http://picmul.herokuapp.com/titles'
