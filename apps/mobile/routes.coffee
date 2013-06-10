@@ -26,20 +26,26 @@ routes = (app, passport) ->
       maxRedirects: 10
       timeout: 10000
     request opts, (err, response, body) ->
-      #console.log body
-      body = body.replace('<html>', '')
-      body = body.replace('<head>', '')
-      body = body.replace('</head>', '')
-      body = body.replace('<body>', '')
-      body = body.replace('\\n', '')
-      body = body.replace('&gt;&gt;', '')
-      body = body.replace('&lt;&lt;', '')
-      data = JSON.parse body
-      
-      values =
-        title: data.title
-        content: data.content
-      res.render 'show', values
+      if body
+        #console.log body
+        body = body.replace('<html>', '')
+        body = body.replace('<head>', '')
+        body = body.replace('</head>', '')
+        body = body.replace('<body>', '')
+        body = body.replace('\\n', '')
+        body = body.replace('&gt;&gt;', '')
+        body = body.replace('&lt;&lt;', '')
+        data = JSON.parse body
+        
+        values =
+          title: data.title
+          content: data.content
+        res.render 'show', values
+      else
+        values = 
+          title: 'unknow'
+          content: 'unknow'
+        res.render 'show', values
       #res.json values
 
   app.get '/fb', (req, res) ->
