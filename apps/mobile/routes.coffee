@@ -9,13 +9,16 @@ routes = (app, passport) ->
       method: 'GET'
       followRedirect: true
       maxRedirects: 10
-      timeout: 10000
+      timeout: 20000
 
     request opts, (err, response, body) ->
-      data = JSON.parse body
-      values =
-        data: data
-      res.render 'index', values
+      try
+        data = JSON.parse body
+        values =
+          data: data
+        res.render 'index', values
+      catch err
+        console.log 'error found index', err
 
   app.get '/show/:id', (req, res) ->
     id = req.params.id
@@ -24,8 +27,9 @@ routes = (app, passport) ->
       method: 'GET'
       followRedirect: true
       maxRedirects: 10
-      timeout: 10000
+      timeout: 20000
     request opts, (err, response, body) ->
+
       if body
         #console.log body
         body = body.replace('<html>', '')
@@ -36,16 +40,24 @@ routes = (app, passport) ->
         body = body.replace('&gt;&gt;', '')
         body = body.replace('&lt;&lt;', '')
         data = JSON.parse body
-        
-        values =
-          title: data.title
-          content: data.content
-        res.render 'show', values
+
+        try
+          data = JSON.parse body
+                
+          values =
+            title: data.title
+            content: data.content
+          res.render 'show', values
+        catch err
+          console.log 'err raised', err
+
       else
         values = 
           title: 'unknow'
           content: 'unknow'
         res.render 'show', values
+
+
       #res.json values
 
   app.get '/fb', (req, res) ->
@@ -61,7 +73,7 @@ routes = (app, passport) ->
     #pass
 
   app.get '/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/login'}), (req, res) ->
-    console.log 'aaa', req.user
+    #console.log 'aaa', req.user
     values =
       success: req.isAuthenticated()
       user: req.user._json
